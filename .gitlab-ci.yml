@@ -1,0 +1,69 @@
+image: docker.io/maven:3.6.1-amazoncorretto-8
+
+stages:
+  - build
+  - unit_test
+  - build_app_image
+  - deploy_to_env
+  - e2e_test
+  - publish
+  - developement
+  - staging
+  - prod
+
+  
+variables:
+  MAVEN_CLI_OPTS: "--batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+build code:
+  stage: build
+  script:
+    - mvn compile
+
+Run unit test:
+  stage: unit_test
+  script:
+    - echo "Placeholder for unit tests"
+	
+build app image:
+  stage: build_app_image
+  script:
+    - echo "Build Docker image for this app version"
+	
+deploy to shared env:
+  stage: deploy_to_env
+  script:
+    - echo "Deploy this version of image in an environment"
+	
+Run e2e test:
+  stage: e2e_test
+  script:
+    - echo "Automated test to validate the app"
+  
+publish:
+  stage: publish
+  script:
+    - echo "Publish this image to image registry for rollout"
+	
+deploy to dev:
+  stage: development
+  script:
+    - echo "Deploy to a newly provisioned stack"
+	
+deploy to stage:
+  stage: staging
+  script:
+    - echo "Deploy to stage"
+
+deploy to prod:
+ stage: prod
+ script:
+   - echo "Deploy to prod"
+	
+	
